@@ -20,7 +20,7 @@ class GCNNet(torch.nn.Module):
             nn.Dropout(dropout),
         )
 
-        # self.cnn1 = nn.Conv1d(in_channels=num_features_xd, out_channels=hidden_dim, kernel_size=1)
+        
 
         self.gat1 = GATConv(91, hidden_dim)
         self.ln1 = LayerNorm(hidden_dim)
@@ -45,7 +45,7 @@ class GCNNet(torch.nn.Module):
         x1 = F.normalize(x1, p=2, dim=1)
         #  BLOSUM62 + PSSM + HMM + SPIDER3 + AAPHY7
         #  20 + 20 + 30 + 14 + 7 = 91
-        # 1280 + 91 = 1371
+       
 
         res = x1
         
