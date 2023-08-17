@@ -11,7 +11,7 @@ Result_Path = './Result/'
 amino_acid = list("ACDEFGHIKLMNPQRSTVWYX")
 amino_dict = {aa: i for i, aa in enumerate(amino_acid)}
 
-# 加载蛋白质名字，序列，标签
+# name, sequence, label
 def load_sequences(sequence_path):
     names, sequences, labels = ([] for i in range(3))
     for file_name in tqdm(os.listdir(sequence_path)):
@@ -22,19 +22,12 @@ def load_sequences(sequence_path):
             labels.append(int(lines[2]))
     return pd.DataFrame({'names': names, 'sequences': sequences, 'labels': labels})
 
-# 加载蛋白质特征
+# features
 def load_features(sequence_name, sequence, mean, std):
-    # len(sequence) * 20
-    # blosum_matrix = np.array([blosum[i] for i in sequence])
-    # len(sequence) * 71
-
-    # 加载esm特征
+    # esm
     oneD_matrix = np.load(Dataset_Path + 'features/node_features2/' + sequence_name + '.npy')
     oneD_matrix = oneD_matrix[1:len(sequence) + 1:]
     twoD_matrix = np.load(Dataset_Path + 'node_features/' + sequence_name + '.npy')
-    # 方差归一化
-    # twoD_matrix = (twoD_matrix - mean) / std
-    # 最大最小归一化
 
     twoD_matrix1 = (twoD_matrix - mean) / (std - mean)
     twoD_matrix = np.concatenate([twoD_matrix[:, :20], twoD_matrix1[:, 20:70], twoD_matrix[:, 70:]], axis=1)
@@ -59,22 +52,11 @@ def load_graph(sequence_name):
 
 def load_values():
 
-    # 最大最下归一化
+    # Normalized
     mean = np.load(Dataset_Path + 'train_1_91_min.npy')
     std = np.load(Dataset_Path + 'train_1_91_max.npy')
 
     return mean, std
-
-def load_blosum():
-    with open(Dataset_Path + 'BLOSUM62_dim23.txt', 'r') as f:
-        result = {}
-        next(f)
-        lines = f.readlines()
-        for line in lines:
-            line = line.strip().split()
-            result[line[0]] = [int(i) for i in line[1:]]
-    return result
-
 
 def load_gobal(name):
 
