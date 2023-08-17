@@ -11,6 +11,7 @@ Enhancing Protein Solubility Prediction through Pre-trained Language Models and 
 - torch-cluster==1.5.9
 - torch-scatter==2.0.8
 - torch-sparse==0.6.9
+  
 You can also create environments based on environment files
 ## 2. Software and database 
 To run the full & accurate version of PPSol, you need to install the following three software and download the corresponding databases:  
