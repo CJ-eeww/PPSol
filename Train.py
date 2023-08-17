@@ -12,7 +12,6 @@ import torch.optim as optim
 from sklearn.model_selection import KFold
 from torch import nn
 from torch_geometric.loader import DataLoader
-# from torch_geometric.data import DataLoader
 from tqdm import tqdm
 from encoder_gcn import GCNNet
 from utils import TestbedDataset
